@@ -26,6 +26,7 @@ function App() {
   useEffect(() => {
     window.addEventListener('scroll', navbarScrollEffect);
     window.addEventListener('scroll', handleScroll);
+    // window.addEventListener('mousemove', (e) => {console.log(e)})
     return () => window.removeEventListener("scroll", handleScroll);
   }, [])
 
@@ -36,16 +37,6 @@ function App() {
           <div className="container">
             <span className="nav-title">
               <h1>{`F&G Dev Solutions`}</h1>
-              <p>
-                <Typewriter
-                  options={{
-                    strings: ['react', 'next.js', 'javascript', 'wordpress', 'ux design'],
-                    pauseFor: 500,
-                    autoStart: true,
-                    loop: true,
-                  }}
-                />            
-              </p>
             </span>
             <button 
               className={!menuOpen ? "hamburger" : "hamburger active"}
@@ -57,6 +48,18 @@ function App() {
             </button>
           </div>
         </nav>
+        <div className={isScrolled ? "typewriter active" : "typewriter"}>
+          <p>
+            <Typewriter
+              options={{
+                strings: ['react', 'next.js', 'javascript', 'wordpress', 'graphQL', 'ux design'],
+                pauseFor: 500,
+                autoStart: true,
+                loop: true,
+              }}
+            />   
+          </p>         
+        </div>
         <div className={ !menuOpen ? "menu" : "menu active"}>
           <ul>
             <li>About</li>
