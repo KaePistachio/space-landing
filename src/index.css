@@ -1,57 +1,83 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&family=VT323&display=swap');
+
+/****** MAIN ******/
+
+* {
   margin: 0px;
   padding: 0px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  cursor: cell;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
 }
 
 .container {
+  max-width: 70rem;
+  padding: 0 2rem;
+  margin: 0 auto;
+}
+
+header {
   position: absolute;
-  background-color: #111;
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  top: 0;
 }
+
+/****** STARFIELD ******/
 
 .starfield {
   z-index: 1;
   position: absolute;
+  top: 0px;
   min-width: 100%;
   object-fit: contain;
+  /* display: none; */
 }
 
 .nebula1 {
   z-index: 10;
   position: absolute;
   width: 1200px;
-  transform: translate(-5vw, -20vh);
+  top: 0px;
+  right: -200px;
+  opacity: 70%;
 }
 
 .nebula2 {
   z-index: 11;
   position: absolute;
-  transform: translate(30vw, 0vh);
+  right: -300px;
+  top: 0px;
+  opacity: 60%;
 }
 
 .nebula3 {
-  z-index: 13;
+  z-index: 12;
   position: absolute;
-  transform: translate(10vw, -10vh);
+  width: 1400px;
+  top: 0px;
+  left: -500px;
+  opacity: 60%;
 }
 
 .nebula4 {
-  z-index: 12;
+  z-index: 13;
   position: absolute;
-  transform: translate(-30vw, 20vh);
+  width: 2500px;
+  bottom: -1600px;
+  left: -200px;
 }
+
+/****** NAVBAR ******/
 
 .hamburger {
   display: block;
@@ -62,23 +88,48 @@ code {
   border: none;
   outline: none;
   background: none;
-  cursor: pointer;
-  margin-top: auto;
+  cursor: cell;
+  margin-top: 1rem;
   margin-bottom: auto;
+  padding-right: 0px;
 }
 
-.navbar {
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100%;
+  height: 85px;
+  padding: 1rem 0rem;
+  background: rgba(0, 0, 0, 0.01);
+  color: rgb(226, 245, 248);
+  margin-top: 1rem;
+}
+
+nav.active {
+  margin-top: 0rem;
+  background: rgba(0, 0, 0, 0.21);
+  transition: all ease-in 0.25s;
+}
+
+nav .container {
   display: flex;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
   justify-content: space-between;
   align-items: center;
+  padding: 0px 0px;
   height: 50px;
-  padding: 5px 15px;
-  background: linear-gradient(to bottom rgba(0, 0, 0, 0.05), transparent);
-  color: antiquewhite;
 }
 
-.navbar h1 {
-  margin: 0px;
+.nav-title {
+  padding-top: 3.5rem;
+}
+
+.nav-title p {
+  padding-top: 2.5rem;
 }
 
 .hamburger span {
@@ -87,7 +138,7 @@ code {
   width: 30px;
   height: 4px;
   margin-bottom: 5px;
-  background-color: antiquewhite;
+  background-color: rgb(226, 245, 248);
   border-radius: 4px;
   transform-origin: 0 0;
   transition: ease 0.4s;
@@ -98,7 +149,7 @@ code {
 }
 
 .hamburger:hover span:nth-child(2) {
-  background-color: darkred;
+  background-color: rgb(201, 130, 255);
   transform: translateX(10px);
   transition: ease 0.2s;
 }
@@ -108,7 +159,7 @@ code {
 }
 
 .hamburger.active span:nth-child(2) {
-  background-color: darkred;
+  background-color: rgb(201, 130, 255);
   opacity: 0%;
   transform: translateX(30px);
   transition: ease 0.2s;
@@ -118,3 +169,129 @@ code {
   transform: translate(21px, -17px) rotate(135deg);
 }
 
+.large-title {
+  position: absolute;
+  z-index: 15;
+  top: calc(50% - 5rem);
+  width: 100%;
+  text-align: center;
+  color: rgb(226, 245, 248);
+  cursor: cell;
+  font-size: 8rem;
+  font-family: 'VT323';
+  font-weight: 600;
+  text-shadow: -3px -3px 2px rgb(201, 130, 255), 3px -3px 1px rgb(103, 197, 244), -3px 3px 1px rgb(201, 130, 255), 3px 3px 1px rgb(103, 197, 244);
+}
+
+.menu {
+  display: flex;
+  position: fixed;
+  width: 280px;
+  z-index: 98;
+  right: -280px;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 2rem;
+  transition: all ease-in-out 0.35s;
+}
+
+.menu.active {
+  transform: translateX(-280px);
+  transition: all ease-in-out 0.35s;
+}
+
+.menu ul {
+  padding: 4rem 2rem;
+  color: rgb(226, 245, 248);
+  text-decoration: none;
+  list-style: none;
+}
+
+.menu li {
+  padding: 0.5rem 0rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: -0.1rem;
+}
+
+.menu li:hover {
+  color: rgb(126, 225, 255);
+  cursor: cell;
+}
+
+@media (max-width: 450px) {
+  .large-title {
+    font-size: 5.5rem;
+  }
+}
+
+/****** BIO ******/
+
+section {
+  width: 100%;
+  background-image: url('./images/starfieldflipped.jpeg');
+  position: relative;
+  top: 100vh
+}
+
+section .container {
+  padding: 3rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+section img {
+  width: 100%;
+}
+
+section .container > *{
+  margin: 2rem;
+}
+
+.content {
+  color: #fff;
+  transform: translateY(-50px);
+}
+
+.content h2 {
+  font-size: 2.5rem;
+  padding-bottom: 1rem;
+}
+
+.imgContainer {
+  transform: translateY(50px);
+}
+
+.title{
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: .5rem;
+  position: relative;
+}
+
+@media screen and (max-width: 600px) {
+
+  section .container {
+    padding: 5rem 0.5rem 0rem 0.5rem;
+    grid-template-columns: 1fr;
+    align-items: flex-start;
+  }
+
+  .content {
+    max-height: 30vh;
+    font-size: 0.9rem;
+  }
+
+  .content h2 {
+    margin-top: 5rem;
+  }
+
+  .imgContainer {
+    display: flex;
+    margin-top: -5rem !important;
+  }
+}
