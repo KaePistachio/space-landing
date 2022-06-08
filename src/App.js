@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Typewriter from 'typewriter-effect';
 import starfield from './images/starfield.jpeg';
 import nebula1 from './images/nebula4.png';
@@ -12,6 +12,9 @@ function App() {
   const [ isScrolled, setIsScrolled ] = useState(false);
   const [ menuOpen, setMenuOpen ] = useState(false);
   const [ offsetY, setOffsetY ] = useState(0);
+  const [ yAxis, setYAxis ] = useState(0);
+  const [ xAxis, setXAxis ] = useState(0);
+  const welcome = useRef(null)
 
   const handleScroll = () => setOffsetY(window.pageYOffset);
 
@@ -23,12 +26,29 @@ function App() {
     }
   }
 
+  const mousePosition = (e) => {
+    const win = window.innerWidth / 2
+    const yWin = window.innerHeight / 2
+    const x = e.clientX;
+    const y = e.clientY;
+    const xSum = Math.round((x - win) / 20);
+    const ySum = Math.round((y - yWin) / 20)
+
+    setTimeout(() => {
+      setXAxis(xSum);
+      console.log(xAxis)
+      setYAxis(ySum);
+      console.log(yAxis)
+    }, 500)
+      
+  }
+
   useEffect(() => {
     window.addEventListener('scroll', navbarScrollEffect);
     window.addEventListener('scroll', handleScroll);
-    // window.addEventListener('mousemove', (e) => {console.log(e)})
+    window.addEventListener('mousemove', mousePosition)
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [])
+  }, )
 
   return (
     <>
@@ -53,7 +73,7 @@ function App() {
             <Typewriter
               options={{
                 strings: ['react', 'next.js', 'javascript', 'wordpress', 'graphQL', 'ux design'],
-                pauseFor: 500,
+                pauseFor: 1500,
                 autoStart: true,
                 loop: true,
               }}
@@ -72,7 +92,7 @@ function App() {
         <img src={nebula2} alt="nebula" className="nebula2" style={{transform: `translateY(${offsetY * 0.3}px)` }}/>
         <img src={nebula3} alt="nebula" className="nebula3" style={{transform: `translateY(${offsetY * 0.9}px)` }} />
         <img src={nebula4} alt="nebula" className="nebula4" style={{transform: `translateY(${offsetY * -0.2}px)` }}/>
-        <h1 className="large-title" style={{ transform: `translateY(${offsetY * -1.4}px)` }}>WELCOME</h1>
+        <h1 className="large-title" style={{ transform: `translate(${xAxis}px, ${yAxis}px)` }} ref={welcome} >WELCOME</h1>
       </header>
 
       <section>
