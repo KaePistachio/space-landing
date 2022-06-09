@@ -232,7 +232,7 @@ nav .container {
   color: rgb(226, 245, 248);
   cursor: cell;
   font-size: 6rem;
-  font-family: 'Macula Shaded';
+  font-family: 'macula-shaded';
   font-weight: 600;
   /* display: none; */
   text-shadow: -3px -3px 2px rgb(201, 130, 255), 3px -3px 1px rgb(103, 197, 244), -3px 3px 1px rgb(201, 130, 255), 3px 3px 1px rgb(103, 197, 244);
@@ -285,7 +285,7 @@ nav .container {
 .line {
   z-index: 99;
   position: fixed;
-  background-color: rgb(229, 203, 34);
+  background-color: rgb(201, 130, 255);
   height: 100vh;
   top: -100vh;
   width: 2px;
