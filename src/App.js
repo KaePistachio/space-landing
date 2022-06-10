@@ -1,5 +1,7 @@
 import './App.css';
 import { useState, useEffect, useRef } from 'react';
+import YouTube from 'react-youtube';
+import { useSecretCode } from './components/konami';
 import Typewriter from 'typewriter-effect';
 import starfield from './images/starfield.jpeg';
 import starfield2 from './images/starfield2.jpeg';
@@ -16,6 +18,8 @@ function App() {
   const [ typewriterScroll, setTypewriterScroll ] = useState(false);
   const [ menuOpen, setMenuOpen ] = useState(false);
   const [ offsetY, setOffsetY ] = useState(0);
+  const konamiCode = [ "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "KeyB", "KeyA",];
+  const konami = useSecretCode(konamiCode);
   // const [ yAxis, setYAxis ] = useState(0);
   // const [ xAxis, setXAxis ] = useState(0);
   const welcome = useRef(null)
@@ -32,7 +36,7 @@ function App() {
   }
 
   const lilTing = () => {
-    const height = window.innerHeight;
+    const height = (window.innerHeight * 0.8);
     if (window.scrollY >= height) {
       setTypewriterScroll(true);
     } else {
@@ -49,6 +53,23 @@ function App() {
       return "typewriter scrolled"
     }
   }
+
+  // const optimizer = () => {
+  //     var throttle = function(type, name, obj) {
+  //         var obj = obj || window;
+  //         var running = false;
+  //         var func = function() {
+  //             if (running) { return; }
+  //             running = true;
+  //             requestAnimationFrame(function() {
+  //                 obj.dispatchEvent(new CustomEvent(name));
+  //                 running = false;
+  //             });
+  //         };
+  //         obj.addEventListener(type, func);
+  //     };
+  //     throttle ("scroll", "optimizedScroll");;
+  // }
 
   // const mousePosition = (e) => {
   //   const win = window.innerWidth / 2
@@ -71,12 +92,27 @@ function App() {
     window.addEventListener('scroll', navbarScrollEffect);
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('scroll', lilTing);
+    // window.addEventListener("optimizedScroll", optimizer())
     // window.addEventListener('mousemove', mousePosition)
     return () => window.removeEventListener("scroll", handleScroll);
   }, [])
 
+  const opts = {
+    height: '390',
+    width: '640',
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 1,
+    },
+  };
+
+  const onReady =(event) => {
+    // access to player in all event handlers via event.target
+    event.target.pauseVideo();
+  }
+
   return (
-    <div className='eve'>
+    <div className='snap'>
       <header>
         <nav className={isScrolled ? "active" : ""}>
           <div className="container">
@@ -118,17 +154,25 @@ function App() {
             <li>Personal</li>
           </ul>
         </div>
-        <img src={starfield} alt="starfield" className="starfield" style={{ transform: `translateY(${offsetY * 0.75}px)` }}/>
-        <img src={nebula1} alt="nebula" className="nebula1" style={{transform: `translateX(${offsetY * -0.6}px)` }}/>
-        <img src={nebula2} alt="nebula" className="nebula2" style={{transform: `translateY(${offsetY * 0.3}px)` }}/>
-        <img src={nebula3} alt="nebula" className="nebula3" style={{transform: `translateY(${offsetY * -0.05}px)` }} />
+        <img src={starfield} alt="starfield" className="starfield" style={{ transform: `translateY(${offsetY * 0.35}px)` }}/>
+        <img src={nebula1} alt="nebula" className="nebula1" style={{transform: `translateX(${offsetY * -0.2}px)` }}/>
+        <img src={nebula2} alt="nebula" className="nebula2" style={{transform: `translate(${offsetY * -0.2}px, ${offsetY * 0.3}px)` }}/>
+        <img src={nebula3} alt="nebula" className="nebula3" style={{transform: `translate(${offsetY * -0.1}px, ${offsetY * 0.05}px)` }} />
         <img src={nebula4} alt="nebula" className="nebula4" style={{transform: `translateX(${offsetY * 0.4}px)` }}/>
         <h1 className="large-title" style={{ transform: `translateX(${offsetY * 1.5}px)` }} ref={welcome} >WELCOME</h1>
+        <div className={!konami ? "youtube" : "youtube active"}>
+          <YouTube 
+            
+            videoId="TXhjIMI_YQE"
+            opts={opts}
+            onReady={onReady}
+          />
+        </div>
       </header>
 
-      <section>
+      <div className='bio'>
         <div className="container">
-          <div className="content">
+          <div className="content" style={{transform: `translate(${offsetY * 0.3}px, ${offsetY * 0.5}px)` }}>
             
               <h2>Bio.</h2>
               <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
@@ -139,15 +183,15 @@ function App() {
               </p>
           </div>
           <div className="imgContainer">
-            <img src={kp} alt="KP" />
+            <img src={kp} alt="KP" style={{ transform: `translate(${offsetY * -0.1}px, ${offsetY * -0.3}px) rotate(${offsetY * -0.05}deg)` }}/>
           </div>
         </div>
-      </section>
+      </div>
 
       <div className='work'>
         <img src={starfield2} alt="starfield" className="starfield2" />
         <div className='work-container'>
-          <div className='content'>
+          <div className='content' >
           <h2>Bio.</h2>
               <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
                   Dolore rerum soluta veritatis sunt delectus odio cumque, eum ducimus aspernatur, 
